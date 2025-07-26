@@ -25,12 +25,12 @@ import * as Cookies from "../processing/cookie/manager.js";
 import * as YouTubeSession from "../processing/helpers/youtube-session.js";
 
 const git = {
-    branch: await getBranch(),
-    commit: await getCommit(),
-    remote: await getRemote(),
+    branch: getBranch(),
+    commit: getCommit(),
+    remote: getRemote(),
 }
 
-const version = await getVersion();
+const version = getVersion();
 
 const acceptRegex = /^application\/json(; charset=utf-8)?$/;
 

@@ -12,7 +12,8 @@ import { hashHmac } from "../security/secrets.js";
 import { zip } from "../misc/utils.js";
 
 // optional dependency
-const freebind = env.freebindCIDR && await import('freebind').catch(() => {});
+// const freebind = env.freebindCIDR && await import('freebind').catch(() => {});
+const freebind = false;
 
 const streamCache = new Store('streams');
 

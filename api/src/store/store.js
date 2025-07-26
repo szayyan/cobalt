@@ -1,10 +1,3 @@
-import { env } from '../config.js';
+import MemoryStore from "./memory-store.js"
 
-let _export;
-if (env.redisURL) {
-    _export = await import('./redis-store.js');
-} else {
-    _export = await import('./memory-store.js');
-}
-
-export default _export.default;
+export default MemoryStore

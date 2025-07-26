@@ -1,7 +1,7 @@
 import { existsSync }  from 'node:fs';
 import { join, parse } from 'node:path';
 import { cwd }         from 'node:process';
-import { readFile }    from 'node:fs/promises';
+import { readFileSync }    from 'node:fs';
 
 const findFile = (file) => {
     let dir = cwd();
@@ -23,11 +23,11 @@ const readGit = (filename) => {
         throw 'no git repository root found';
     }
 
-    return readFile(join(root, filename), 'utf8');
+    return readFileSync(join(root, filename), 'utf8');
 }
 
-export const getCommit = async () => {
-    return (await readGit('.git/logs/HEAD'))
+export const getCommit = () => {
+    return (readGit('.git/logs/HEAD'))
             ?.split('\n')
             ?.filter(String)
             ?.pop()
@@ -43,13 +43,13 @@ export const getBranch = async () => {
         return process.env.WORKERS_CI_BRANCH;
     }
 
-    return (await readGit('.git/HEAD'))
+    return (readGit('.git/HEAD'))
             ?.replace(/^ref: refs\/heads\//, '')
             ?.trim();
 }
 
-export const getRemote = async () => {
-    let remote = (await readGit('.git/config'))
+export const getRemote = () => {
+    let remote = (readGit('.git/config'))
                     ?.split('\n')
                     ?.find(line => line.includes('url = '))
                     ?.split('url = ')[1];
@@ -69,13 +69,13 @@ export const getRemote = async () => {
     return remote;
 }
 
-export const getVersion = async () => {
+export const getVersion = () => {
     if (!pack) {
         throw 'no package root found';
     }
 
     const { version } = JSON.parse(
-        await readFile(join(pack, 'package.json'), 'utf8')
+        readFileSync(join(pack, 'package.json'), 'utf8')
     );
 
     return version;

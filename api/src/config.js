@@ -1,7 +1,7 @@
 import { getVersion } from "@imput/version-info";
 import { loadEnvs, validateEnvs } from "./core/env.js";
 
-const version = await getVersion();
+const version = getVersion();
 
 const canonicalEnv = Object.freeze(structuredClone(process.env));
 const env = loadEnvs();
@@ -31,7 +31,7 @@ export const updateEnv = (newEnv) => {
     return changes;
 }
 
-await validateEnvs(env);
+// await validateEnvs(env);
 
 export {
     env,
